@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using api.Models;
 using api.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace apitests
 {
-    [TestClass]
     public class TransactionServiceTests
     {
         private ITransactionService _sut;
-
-        [TestInitialize]
+        
         public void Initialize()
         {
-            _sut = CreateTransactionService();
+            _sut = new TransactionService();
         }
 
         private ITransactionService CreateTransactionService()
         {
             return null;
         }
-
-        [TestMethod]
+        
+        [Fact]
         public void Given_Two_Ascending_Values_Should_Return_Correct()
         {
             var transactions = new List<Transaction>()
@@ -33,12 +31,13 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-1).Date, start);
-            Assert.AreEqual(DateTime.UtcNow.Date, end);
-            Assert.AreEqual(1, positiveBalanceChange);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-1).Date, start);
+            Assert.Equivalent(DateTime.UtcNow.Date, end);
+            Assert.Equivalent(1, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
+
         public void Given_Three_Values_With_First_Pair_Being_Ascending_Should_Return_Correct()
         {
             var transactions = new List<Transaction>()
@@ -50,12 +49,13 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-2).Date, start);
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-1).Date, end);
-            Assert.AreEqual(1, positiveBalanceChange);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-2).Date, start);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-1).Date, end);
+            Assert.Equivalent(1, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
+
         public void Given_Four_Values_With_Second_And_Third_Being_Ascending_Values_Should_Return_Correct()
         {
             var transactions = new List<Transaction>()
@@ -68,12 +68,13 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-2).Date, start);
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-1).Date, end);
-            Assert.AreEqual(1, positiveBalanceChange);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-2).Date, start);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-1).Date, end);
+            Assert.Equivalent(1, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
+
         public void Given_Four_Values_With_First_And_Last_Values_Greatest_Earning_Should_Return_Correct()
         {
             var transactions = new List<Transaction>()
@@ -86,12 +87,12 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-3).Date, start);
-            Assert.AreEqual(DateTime.UtcNow.Date, end);
-            Assert.AreEqual(3, positiveBalanceChange);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-3).Date, start);
+            Assert.Equivalent(DateTime.UtcNow.Date, end);
+            Assert.Equivalent(3, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_All_Equal_Should_Return_Null_Values()
         {
             var transactions = new List<Transaction>()
@@ -104,12 +105,12 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(null, start);
-            Assert.AreEqual(null, end);
-            Assert.AreEqual(0, positiveBalanceChange);
+            Assert.Equivalent(null, start);
+            Assert.Equivalent(null, end);
+            Assert.Equivalent(0, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_Descending_Should_Return_Null_Values()
         {
             var transactions = new List<Transaction>()
@@ -122,12 +123,12 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(null, start);
-            Assert.AreEqual(null, end);
-            Assert.AreEqual(0, positiveBalanceChange);
+            Assert.Equivalent(null, start);
+            Assert.Equivalent(null, end);
+            Assert.Equivalent(0, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_Two_Peaks_With_Last_Being_Greatest_Should_Return_The_Last_Values()
         {
             var transactions = new List<Transaction>()
@@ -141,12 +142,12 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-1).Date, start);
-            Assert.AreEqual(DateTime.UtcNow.Date, end);
-            Assert.AreEqual(2, positiveBalanceChange);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-1).Date, start);
+            Assert.Equivalent(DateTime.UtcNow.Date, end);
+            Assert.Equivalent(2, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_Highest_Earning_From_Negative_To_Positive()
         {
             var transactions = new List<Transaction>()
@@ -160,12 +161,12 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-3).Date, start);
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-2).Date, end);
-            Assert.AreEqual(8, positiveBalanceChange);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-3).Date, start);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-2).Date, end);
+            Assert.Equivalent(8, positiveBalanceChange);
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_Highest_Earning_From_Fluctuating_Data()
         {
             var transactions = new List<Transaction>()
@@ -183,9 +184,9 @@ namespace apitests
 
             var (start, end, positiveBalanceChange) = _sut.GetHighestPositiveBalanceChange(transactions);
 
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-4).Date, start);
-            Assert.AreEqual(DateTime.UtcNow.AddDays(-2).Date, end);
-            Assert.AreEqual(9000, positiveBalanceChange);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-4).Date, start);
+            Assert.Equivalent(DateTime.UtcNow.AddDays(-2).Date, end);
+            Assert.Equivalent(9000, positiveBalanceChange);
         }
     }
 }

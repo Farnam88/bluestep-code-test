@@ -1,10 +1,16 @@
-﻿using System.Threading.Tasks;
-using api.Models;
+﻿using api.Models;
 
-namespace api.Services
+namespace api.Services;
+
+public interface IConversionService
 {
-    public interface IConversionService
+    Task<Account> GetConvertedAccount(string currency);
+}
+
+public class ConversionService:IConversionService
+{
+    public Task<Account> GetConvertedAccount(string currency)
     {
-        Task<Account> GetConvertedAccount(string currency);
+        throw new NotImplementedException();
     }
 }

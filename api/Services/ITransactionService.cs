@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using api.Models;
+﻿using api.Models;
 
-namespace api.Services
+namespace api.Services;
+
+public interface ITransactionService
 {
-    public interface ITransactionService
+    (DateTime? start, DateTime? end, decimal highestBalanceChange) GetHighestPositiveBalanceChange(List<Transaction> transactions);
+}
+
+public class TransactionService:ITransactionService
+{
+    public (DateTime? start, DateTime? end, decimal highestBalanceChange) GetHighestPositiveBalanceChange(List<Transaction> transactions)
     {
-        (DateTime? start, DateTime? end, decimal highestBalanceChange) GetHighestPositiveBalanceChange(List<Transaction> transactions);
+        throw new NotImplementedException();
     }
 }

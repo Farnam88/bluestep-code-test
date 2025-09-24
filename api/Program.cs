@@ -1,19 +1,21 @@
-namespace api
-{
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
+var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("appsettings.json", false, true);
+builder.Configuration.AddEnvironmentVariables();
 
-    public class Program
-    {
-        public static IHostBuilder CreateHostBuilder(string [ ] args)
-        {
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
-        }
+builder.Services.AddControllers();
 
-        public static void Main(string [ ] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-    }
-}
+var app = builder.Build();
+
+
+if (app.Environment.IsDevelopment())
+    app.UseDeveloperExceptionPage();
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+app.Run();

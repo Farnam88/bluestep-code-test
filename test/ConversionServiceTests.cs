@@ -1,45 +1,35 @@
 using System;
 using System.Threading.Tasks;
 using api.Services;
-using apitests.Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace apitests
 {
-    [TestClass]
     public class ConversionServiceTests
     {
         private IConversionService _sut;
-        private IAccountService _mockAccountService;
-        private IExchangeRateService _mockExchangeRateService;
 
-        [TestInitialize]
-        public void Initialize()
+        public ConversionServiceTests()
         {
-            _mockAccountService = new MockAccountService();
-            _mockExchangeRateService = new MockExchangeRateService();
-            _sut = GetConversionService();
+            _sut = new ConversionService();
         }
 
-        private IConversionService GetConversionService()
-        {
-            return null;
-        }
-
-        [TestMethod]
-        public async Task Given_Account_And_ExchangeRate_When_Converting_A_Service_Then_It_Should_Convert_On_Found_Exchange_Rate()
+        [Fact]
+        public async Task
+            Given_Account_And_ExchangeRate_When_Converting_A_Service_Then_It_Should_Convert_On_Found_Exchange_Rate()
         {
             var actual = await _sut.GetConvertedAccount("DKK");
 
-            Assert.IsNotNull(actual);
-            Assert.AreEqual("DKK", actual.Currency);
-            Assert.AreEqual(110, actual.Balance);
+            Assert.NotNull(actual);
+            Assert.Equivalent("DKK", actual.Currency);
+            Assert.Equivalent(110, actual.Balance);
         }
 
-        [TestMethod]
-        public async Task Given_Account_And_ExchangeRate_When_Converting_A_Service_With_Not_Found_Currency_It_Should_Throw()
+        [Fact]
+        public async Task
+            Given_Account_And_ExchangeRate_When_Converting_A_Service_With_Not_Found_Currency_It_Should_Throw()
         {
-            await Assert.ThrowsExceptionAsync<ArgumentException>(() => _sut.GetConvertedAccount("NOT_VALID"));
+            await Assert.ThrowsAsync<ArgumentException>(() => _sut.GetConvertedAccount("NOT_VALID"));
         }
     }
 }
