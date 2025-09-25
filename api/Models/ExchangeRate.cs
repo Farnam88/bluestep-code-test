@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace api.Models
+namespace api.Models;
+
+public class ExchangeRate
 {
-    public class ExchangeRate
-    {
-        public string Name { get; set; }
-        public List<Currency> Currencies { get; set; }
-    }
+    public string Name { get; set; }
+    public List<Currency> Currencies { get; set; }
 }

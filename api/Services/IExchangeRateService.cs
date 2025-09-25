@@ -1,10 +1,16 @@
-﻿using System.Threading.Tasks;
-using api.Models;
+﻿using api.Models;
 
-namespace api.Services
+namespace api.Services;
+
+public interface IExchangeRateService
 {
-    public interface IExchangeRateService
+    Task<ExchangeRate> GetExchangeRate();
+}
+
+public  class ExchangeRateService:IExchangeRateService
+{
+    public Task<ExchangeRate> GetExchangeRate()
     {
-        Task<ExchangeRate> GetExchangeRate();
+        throw new NotImplementedException();
     }
 }

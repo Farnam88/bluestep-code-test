@@ -1,10 +1,16 @@
-﻿using System.Threading.Tasks;
-using api.Models;
+﻿using api.Models;
 
-namespace api.Services
+namespace api.Services;
+
+public interface IAccountService
 {
-    public interface IAccountService
+    Task<Account> GetAccount();
+}
+
+public class AccountService : IAccountService
+{
+    public Task<Account> GetAccount()
     {
-        Task<Account> GetAccount();
+        throw new NotImplementedException();
     }
 }

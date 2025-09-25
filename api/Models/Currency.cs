@@ -1,8 +1,7 @@
-﻿namespace api.Models
+﻿namespace api.Models;
+
+public class Currency
 {
-    public class Currency
-    {
-        public string Name { get; set; }
-        public decimal ExchangeRate { get; set; }
-    }
+    public string Name { get; set; }
+    public decimal ExchangeRate { get; set; }
 }
