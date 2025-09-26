@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace api.Models;
+﻿namespace api.Domain.Models;
 
 public class Account
 {

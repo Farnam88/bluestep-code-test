@@ -1,4 +1,4 @@
-﻿namespace api.Models;
+﻿namespace api.Domain.Models;
 
 public class Currency
 {

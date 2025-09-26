@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using api.Models;
-using api.Services;
-using Xunit;
+using api.Application.Services;
+using api.Domain.Models;
 
-namespace apitests;
+namespace apitests.ApplicationTests;
 
 public class TransactionServiceTests
 {

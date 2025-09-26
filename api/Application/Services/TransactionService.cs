@@ -1,6 +1,6 @@
-﻿using api.Models;
+﻿using api.Domain.Models;
 
-namespace api.Services;
+namespace api.Application.Services;
 
 public interface ITransactionService
 {
